@@ -16,7 +16,10 @@ EOF
 
 # Updates
 sudo apt update && sudo apt upgrade -y
-sudo apt install base64 bloodhound build-essential chromium fish git metasploit-framework mingw-w64 nmap openjdk-11-jdk python3-pip seclists vim wifite wireless-tools wireshark
+sudo apt install base64 bloodhound build-essential chromium fish git metasploit-framework mingw-w64 nmap openjdk-11-jdk python-pip python3-pip seclists vim wifite wireless-tools wireshark
+
+# Pip Install
+sudo pip install configobj pyparsing
 
 # Install Repos
 sudo git clone https://github.com/rbsec/dnscan.git /opt/dnscan
