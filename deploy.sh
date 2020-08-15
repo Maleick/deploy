@@ -54,6 +54,6 @@ cp /opt/dotfiles/fish/config.fish ~/.config/fish
 cp /opt/dotfiles/tmux/.tmux.conf ~
 cp /opt/dotfiles/vim/.vimrc ~
 
-chsh -s `which fish`
+chsh -s /usr/bin/fish
 
 sudo reboot
