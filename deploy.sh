@@ -15,8 +15,10 @@ cat << "EOF"
 EOF
 
 # Updates
-apt update && apt full-upgrade -y && apt autoremove -y
-apt install at bloodhound fish mingw-w64 openjdk-11-jdk python-pip python3-pip seclists
+apt update
+apt full-upgrade -y
+apt autoremove -y
+apt install at bloodhound fish mingw-w64 openjdk-11-jdk python-pip python3-pip seclists -y
 
 # Pip install
 pip install configobj pyparsing
