@@ -50,9 +50,9 @@ git clone https://github.com/Maleick/awsmBloodhoundCustomQueries.git /opt/Custom
 
 # Dotfiles
 git clone https://github.com/Maleick/dotfiles /opt/dotfiles
-cp /opt/dotfiles/fish/config.fish ~/.config/fish
-cp /opt/dotfiles/tmux/.tmux.conf ~
-cp /opt/dotfiles/vim/.vimrc ~
+cp /opt/dotfiles/fish/config.fish ~/.config/fish/config.fish
+cp /opt/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+cp /opt/dotfiles/vim/.vimrc ~/.vimrc
 
 chsh -s /usr/bin/fish
 
