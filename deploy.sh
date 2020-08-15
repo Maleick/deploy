@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.11
-# Update: 7/30/20
-# Purpose: Kali Minimal Install Script
+# Version: 1.12
+# Update: 8/14/20
+# Deploy Kali VMWare image setup
 
 cat << "EOF"
 ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███████╗██╗  ██╗
@@ -15,62 +15,43 @@ cat << "EOF"
 EOF
 
 # Updates
-sudo apt update && sudo apt upgrade -y
-sudo apt install base64 bloodhound build-essential chromium fish git metasploit-framework mingw-w64 nmap openjdk-11-jdk python-pip python3-pip seclists vim wifite wireless-tools wireshark
+apt update && apt full-upgrade -y && apt autoremove -y
+apt install at bloodhound fish mingw-w64 openjdk-11-jdk python-pip python3-pip seclists
 
-# Pip Install
-sudo pip install configobj pyparsing
+# Pip install
+pip install configobj pyparsing
 
-# Install Repos
-sudo git clone https://github.com/rbsec/dnscan.git /opt/dnscan
-sudo git clone https://github.com/chinarulezzz/spoofcheck /opt/spoofcheck; cd /opt/spoofcheck; sudo pip3 install -r requirements.txt
-sudo git clone https://gist.github.com/superkojiman/11076951 /opt/namemash; sudo chmod +x /opt/namemash/namemash.py
-sudo git clone https://github.com/byt3bl33d3r/SprayingToolkit.git /opt/SprayingToolkit; cd /opt/SprayingToolkit; sudo pip3 install -r requirements.txt
-sudo git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
-sudo gem install evil-winrm
-
-
-git clone https://github.com/fox-it/mitm6.git
-
-git clone https://github.com/rsmudge/ElevateKit
+# Clone all the things
+git clone https://github.com/fox-it/mitm6.git /opt/mitm6; cd /opt/mitm6; pip install -r requirements.txt
+git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess; sh /opt/Egress-Assess/setup/setup.sh
+git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip install .
 git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit; cd /opt/PowerSploit; git checkout dev
+git clone https://github.com/byt3bl33d3r/SprayingToolkit.git /opt/SprayingToolkit; cd /opt/SprayingToolkit; sudo pip3 install -r requirements.txt
+git clone https://github.com/EnableSecurity/wafw00f /opt/wafwoof; cd /opt/wafwoof; python setup.py install
+git clone https://github.com/fox-it/BloodHound.py.git /opt/BloodHound.py; cd /opt/BloodHound.py; pip install .
+git clone https://github.com/s0lst1c3/eaphammer.git /opt/eaphammer
+git clone https://github.com/josephkingstone/cobalt_strike_extension_kit.git /opt/cobalt_strike_extension_kit
+git clone https://github.com/D35m0nd142/LFISuite.git /opt/LFISuite
+git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git /opt/winPEAS
+git clone https://github.com/lgandx/Responder.git /opt/Responder
+git clone --recursive https://github.com/eteran/edb-debugger.git /opt/edb-debugger
+gem install evil-winrm
 
+# Setup SSH
+systemctl enable ssh.service
+rm /etc/ssh/ssh_host_*
+dpkg-reconfigure openssh-server
 
-git clone https://github.com/trustedsec/cve-2019-19781.git
-git clone https://github.com/dirkjanm/privexchange/
-git clone https://github.com/fox-it/mitm6.git
-git clone https://github.com/SecureAuthCorp/impacket.git
+# Forks and personal repos
+git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate; sh /opt/Enumerate/install.sh
+git clone https://github.com/Maleick/awsmBloodhoundCustomQueries.git /opt/CustomQueries
 
-git clone https://github.com/D35m0nd142/LFISuite.git
-
-git clone https://github.com/mdsecactivebreach/SharpShooter
-git clone https://github.com/n00py/bhg.git
-git clone https://github.com/n00py/WPForce.git
-git clone https://github.com/nccgroup/demiguise.git
-git clone https://github.com/nccgroup/redsnarf.git
-git clone https://github.com/Ne0nd0g/merlin.git
-git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git
-git clone https://github.com/rebootuser/LinEnum.git
-git clone https://github.com/RenwaX23/XSS-Payloads.git
-git clone https://github.com/s0md3v/AwesomeXSS.git
-git clone https://github.com/s0md3v/Photon.git
-git clone https://github.com/Coalfire-Research/DeathMetal.git
-git clone https://github.com/Raikia/UhOh365.git
-git clone https://github.com/EnableSecurity/wafw00f
-git clone https://github.com/dxa4481/truffleHog.git
-git clone https://github.com/NinjaStyle82/bhg.git
-git clone https://github.com/s0md3v/Corsy.git
-git clone https://github.com/zeroSteiner/crimson-forge
-git clone --recursive https://github.com/eteran/edb-debugger.git
-
-
-sudo gem install evil-winrm
 # Dotfiles
 git clone https://github.com/Maleick/dotfiles /opt/dotfiles
-cp /opt/dotfiles/zsh/.zshrc ~
+cp /opt/dotfiles/fish/config.fish ~/.config/fish
 cp /opt/dotfiles/tmux/.tmux.conf ~
 cp /opt/dotfiles/vim/.vimrc ~
 
-sudo systemctl enable ssh.service
+chsh -s `which fish`
 
 sudo reboot
