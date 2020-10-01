@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.12
-# Update: 8/14/20
+# Version: 1.2
+# Update: 10/1/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -18,16 +18,15 @@ EOF
 apt update
 apt full-upgrade -y
 apt autoremove -y
-apt install at bloodhound fish mingw-w64 openjdk-11-jdk python-pip python3-pip seclists -y
+apt install at bloodhound fish golang mingw-w64 impacket-scripts openjdk-11-jdk python-pip python3-pip seclists -y
 
 # Pip install
-pip install configobj pyparsing
+pip install configobj mitm6 pycrypto pyparsing
+pip3 install pypykatz
 
 # Clone all the things
-git clone https://github.com/fox-it/mitm6.git /opt/mitm6; cd /opt/mitm6; pip install -r requirements.txt
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess; sh /opt/Egress-Assess/setup/setup.sh
-git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip install .
-git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit; cd /opt/PowerSploit; git checkout dev
+git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit; cd /opt/PowerSploit
 git clone https://github.com/byt3bl33d3r/SprayingToolkit.git /opt/SprayingToolkit; cd /opt/SprayingToolkit; sudo pip3 install -r requirements.txt
 git clone https://github.com/EnableSecurity/wafw00f /opt/wafwoof; cd /opt/wafwoof; python setup.py install
 git clone https://github.com/fox-it/BloodHound.py.git /opt/BloodHound.py; cd /opt/BloodHound.py; pip install .
@@ -50,10 +49,7 @@ git clone https://github.com/Maleick/awsmBloodhoundCustomQueries.git /opt/Custom
 
 # Dotfiles
 git clone https://github.com/Maleick/dotfiles /opt/dotfiles
-cp /opt/dotfiles/fish/config.fish ~/.config/fish/config.fish
 cp /opt/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 cp /opt/dotfiles/vim/.vimrc ~/.vimrc
-
-chsh -s /usr/bin/fish
 
 sudo reboot
