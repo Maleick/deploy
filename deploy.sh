@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.3
-# Update: 10/4/20
+# Version: 1.31
+# Update: 10/5/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -18,7 +18,7 @@ EOF
 apt update
 apt full-upgrade -y
 apt install at bloodhound golang mingw-w64 openjdk-11-jdk python-pip python3-pip seclists -y
-apt remove metasploit-framework
+apt remove metasploit-framework -y 
 apt autoremove -y
 
 # Install real metasploit
