@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.2
-# Update: 10/1/20
+# Version: 1.3
+# Update: 10/4/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -17,22 +17,27 @@ EOF
 # Updates
 apt update
 apt full-upgrade -y
+apt install at bloodhound golang mingw-w64 openjdk-11-jdk python-pip python3-pip seclists -y
+apt remove metasploit-framework
 apt autoremove -y
-apt install at bloodhound fish golang mingw-w64 impacket-scripts openjdk-11-jdk python-pip python3-pip seclists -y
+
+# Install real metasploit
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+  chmod 755 msfinstall && \
+  ./msfinstall
+rm msfinstall
 
 # Pip install
 pip install configobj mitm6 pycrypto pyparsing
 pip3 install pypykatz
 
 # Clone all the things
+git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip install .
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess; sh /opt/Egress-Assess/setup/setup.sh
-git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit; cd /opt/PowerSploit
-git clone https://github.com/byt3bl33d3r/SprayingToolkit.git /opt/SprayingToolkit; cd /opt/SprayingToolkit; sudo pip3 install -r requirements.txt
-git clone https://github.com/EnableSecurity/wafw00f /opt/wafwoof; cd /opt/wafwoof; python setup.py install
+git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
 git clone https://github.com/fox-it/BloodHound.py.git /opt/BloodHound.py; cd /opt/BloodHound.py; pip install .
 git clone https://github.com/s0lst1c3/eaphammer.git /opt/eaphammer
 git clone https://github.com/josephkingstone/cobalt_strike_extension_kit.git /opt/cobalt_strike_extension_kit
-git clone https://github.com/D35m0nd142/LFISuite.git /opt/LFISuite
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git /opt/winPEAS
 git clone https://github.com/lgandx/Responder.git /opt/Responder
 git clone --recursive https://github.com/eteran/edb-debugger.git /opt/edb-debugger
