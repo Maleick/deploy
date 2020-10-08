@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.31
-# Update: 10/5/20
+# Version: 1.32
+# Update: 10/7/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -17,7 +17,7 @@ EOF
 # Updates
 apt update
 apt full-upgrade -y
-apt install at bloodhound golang mingw-w64 openjdk-11-jdk python-pip python3-pip seclists -y
+apt install at bloodhound golang mingw-w64 openjdk-11-jdk seclists -y
 apt remove metasploit-framework -y 
 apt autoremove -y
 
@@ -27,8 +27,11 @@ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/t
   ./msfinstall
 rm msfinstall
 
-# Pip install
+# Fix pip install
+wget https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
 pip install configobj mitm6 pycrypto pyparsing
+python3 get-pip.py
 pip3 install pypykatz
 
 # Clone all the things
