@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.32
-# Update: 10/7/20
+# Version: 1.33
+# Update: 10/12/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -16,10 +16,10 @@ EOF
 
 # Updates
 apt update
-apt full-upgrade -y
-apt install at bloodhound golang mingw-w64 openjdk-11-jdk seclists -y
-apt remove metasploit-framework -y 
-apt autoremove -y
+apt full-upgrade
+apt install at bloodhound golang mingw-w64 openjdk-11-jdk seclists wine
+apt remove metasploit-framework 
+apt autoremove
 
 # Install real metasploit
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
