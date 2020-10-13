@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.35
+# Version: 1.36
 # Update: 10/13/20
 # Deploy Kali VMWare image setup
 
@@ -17,7 +17,7 @@ EOF
 # Updates
 dpkg --add-architecture i386
 apt update
-apt install at bloodhound golang mingw-w64 openjdk-11-jdk seclists wine
+apt install at bloodhound chromium golang mingw-w64 openjdk-11-jdk seclists wine
 apt full-upgrade
 apt remove metasploit-framework 
 apt autoremove
