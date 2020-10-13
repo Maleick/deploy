@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.34
-# Update: 10/12/20
+# Version: 1.35
+# Update: 10/13/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -15,10 +15,10 @@ cat << "EOF"
 EOF
 
 # Updates
-dpkg --add-archtitecture i386
+dpkg --add-architecture i386
 apt update
+apt install at bloodhound golang mingw-w64 openjdk-11-jdk seclists wine
 apt full-upgrade
-apt install at bloodhound golang mingw-w64 openjdk-11-jdk seclists wine wine32
 apt remove metasploit-framework 
 apt autoremove
 
@@ -37,7 +37,7 @@ pip3 install pypykatz
 
 # Clone all the things
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip install .
-git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess; sh /opt/Egress-Assess/setup/setup.sh
+git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
 git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
 git clone https://github.com/fox-it/BloodHound.py.git /opt/BloodHound.py; cd /opt/BloodHound.py; pip install .
 git clone https://github.com/s0lst1c3/eaphammer.git /opt/eaphammer
