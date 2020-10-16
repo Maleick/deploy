@@ -16,7 +16,8 @@ EOF
 
 # Updates
 apt update
-apt install at bc bloodhound build-essential dkms dnsmasq golang hostapd mingw-w64 openjdk-11-jdk seclists wine
+apt install at bc bloodhound build-essential chromium dkms dnsmasq golang hostapd mingw-w64 openjdk-11-jdk seclists wine
+apt install at bloodhound chromium golang mingw-w64 openjdk-11-jdk seclists wine
 apt full-upgrade
 apt remove metasploit-framework 
 apt autoremove
