@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.37
+# Version: 1.38
 # Update: 10/27/20
 # Deploy Kali VMWare image setup
 
@@ -27,10 +27,10 @@ apt autoremove
 # Fix pip install
 echo "$green Deploying Python-pip $white"
 wget https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
-pip install configobj mitm6 pycrypto pyparsing
 python3 get-pip.py
 pip3 install pypykatz
+python get-pip.py
+pip install configobj mitm6 pycryptodome pyparsing
 
 # Clone all the things
 echo "$green Deploy the Clones $white"
