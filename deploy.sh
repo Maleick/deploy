@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.36
-# Update: 10/16/20
+# Version: 1.37
+# Update: 10/27/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -14,21 +14,18 @@ cat << "EOF"
 ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚═╝╚══════╝╚═╝  ╚═╝
 EOF
 
+# Import
+. colors.sh
+
 # Updates
+echo "$green Deploying Updates $white"
 apt update
 apt install at bc bloodhound build-essential chromium dkms dnsmasq golang hostapd mingw-w64 openjdk-11-jdk seclists wine
-apt install at bloodhound chromium golang mingw-w64 openjdk-11-jdk seclists wine
 apt full-upgrade
-apt remove metasploit-framework 
 apt autoremove
 
-# Install real metasploit
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
-  chmod 755 msfinstall && \
-  ./msfinstall
-rm msfinstall
-
 # Fix pip install
+echo "$green Deploying Python-pip $white"
 wget https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 pip install configobj mitm6 pycrypto pyparsing
@@ -36,6 +33,7 @@ python3 get-pip.py
 pip3 install pypykatz
 
 # Clone all the things
+echo "$green Deploy the Clones $white"
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip install .
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
 git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
@@ -48,17 +46,21 @@ git clone --recursive https://github.com/eteran/edb-debugger.git /opt/edb-debugg
 gem install evil-winrm
 
 # Setup SSH
+echo "$green Deploy SSH $white"
 systemctl enable ssh.service
 rm /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
 
-# Forks and personal repos
+# Enumerate
+echo "$green Deploy Enumerate $white"
 git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate; sh /opt/Enumerate/install.sh
-git clone https://github.com/Maleick/awsmBloodhoundCustomQueries.git /opt/CustomQueries
 
 # Dotfiles
+echo "green Deploy Dotfiles $white"
 git clone https://github.com/Maleick/dotfiles /opt/dotfiles
 cp /opt/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 cp /opt/dotfiles/vim/.vimrc ~/.vimrc
 
-sudo reboot
+pause
+
+reboot
