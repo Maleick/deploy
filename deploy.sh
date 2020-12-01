@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.38
-# Update: 10/27/20
+# Version: 1.39
+# Update: 12/1/20
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -20,8 +20,8 @@ EOF
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc bloodhound build-essential chromium dkms dnsmasq golang hostapd mingw-w64 openjdk-11-jdk seclists wine
-apt full-upgrade
+apt install at bc bloodhound build-essential chromium dkms dnsmasq golang hostapd mingw-w64 openjdk-11-jdk seclists win32 -y
+apt full-upgrade -y
 apt autoremove
 
 # Fix pip install
@@ -34,6 +34,7 @@ pip install configobj mitm6 pycryptodome pyparsing
 
 # Clone all the things
 echo "$green Deploy the Clones $white"
+python3 get-pip.py
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip install .
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
 git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
@@ -56,11 +57,13 @@ echo "$green Deploy Enumerate $white"
 git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate; sh /opt/Enumerate/install.sh
 
 # Dotfiles
-echo "green Deploy Dotfiles $white"
+echo "$green Deploy Dotfiles $white"
 git clone https://github.com/Maleick/dotfiles /opt/dotfiles
 cp /opt/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 cp /opt/dotfiles/vim/.vimrc ~/.vimrc
 
-pause
+# Reboot countdown
+echo "$red Rebooting in 10 seconds. $white"
+sleep 10s
 
 reboot
