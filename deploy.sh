@@ -14,8 +14,11 @@ cat << "EOF"
 ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚═╝╚══════╝╚═╝  ╚═╝
 EOF
 
-# Import
-. colors.sh
+# Colors
+blue=$'\e[0;94m'
+green=$'\e[1;92m'
+red=$'\e[0;91m'
+white=$'\e[0m'
 
 # Updates
 echo "$green Deploying Updates $white"
@@ -24,14 +27,9 @@ apt install at bc bloodhound build-essential chromium dkms dnsmasq hostapd mingw
 apt full-upgrade -y
 apt autoremove
 
-# Fix pip install
-echo "$green Deploying Python-pip $white"
-wget https://bootstrap.pypa.io/get-pip.py
-python2 get-pip.py
-pip install configobj mitm6 pycryptodome pyparsing
-wait
-python3 get-pip.py
-pip3 install pypykatz
+# Pip install
+echo "$green Deploying Pip $white"
+pip install mitm6 pypykatz
 
 # Clone all the things
 echo "$green Deploy the Clones $white"
