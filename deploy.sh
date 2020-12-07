@@ -20,7 +20,7 @@ EOF
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc bloodhound build-essential chromium dkms dnsmasq golang hostapd mingw-w64 openjdk-11-jdk seclists wine32 -y
+apt install at bc bloodhound build-essential chromium dkms dnsmasq hostapd mingw-w64 openjdk-11-jdk seclists wine32 -y
 apt full-upgrade -y
 apt autoremove
 
