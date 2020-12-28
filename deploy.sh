@@ -66,4 +66,5 @@ mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.1.404-linux-x64.tar.gz -C $HOME/do
 echo 'export DOTNET_ROOT=$HOME/dotnet' >> .zshrc
 echo 'export PATH=$PATH:$HOME/dotnet' >> .zshrc
 
-
+# Enable Cron
+systemctl enable cron
