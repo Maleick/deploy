@@ -23,7 +23,7 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc build-essential dirb firefox mingw-w64 nmap openjdk-11-jdk ruby-dev tightvncserver xfce4 xfce4-goodies xfonts-base x11-xserver-utils wine zsh zsh-autosuggestions zsh-syntax-highlighting -y
+apt install at bc build-essential dirb firefox mingw-w64 net-tools nmap openjdk-11-jdk openvpn ruby-dev tightvncserver xfce4 xfce4-goodies xfonts-base x11-xserver-utils wine zsh zsh-autosuggestions zsh-syntax-highlighting -y
 apt full-upgrade -y
 apt autoremove
 chsh -s $(which zsh)
