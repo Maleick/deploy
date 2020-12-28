@@ -23,9 +23,21 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc build-essential mingw-w64 nmap openjdk-11-jdk ruby wine zsh zsh-autosuggestions zsh-syntax-highlighting -y
+apt install at bc build-essential dirb firefox mingw-w64 nmap openjdk-11-jdk ruby-dev tightvncserver xfce4 xfce4-goodies xfonts-base x11-xserver-utils wine zsh zsh-autosuggestions zsh-syntax-highlighting -y
 apt full-upgrade -y
 apt autoremove
+chsh -s $(which zsh)
+
+# Install Metasploit
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall
+
+# Setup VNC
+cat << EOF > ~/.vnc/xstartup
+#!/bin/bash
+xrdb $HOME/.Xresources
+startxfce4 &
+EOF
+chmod +x ~/.vnc/xstartup
 
 # Clone all the things
 echo "$green Deploy the Clones $white"
