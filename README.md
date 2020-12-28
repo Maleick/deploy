@@ -1,6 +1,6 @@
 # deploy
-Tired of setting up new Kali images
+Tired of setting up new Digital Ocean machines for HackTheBox Prolabs
 
 ```
-sudo ./deploy.sh
+sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/Maleick/deploy/prolabs/deploy.sh)"
 ```
