@@ -23,7 +23,7 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc build-essential mingw-w64 nmap openjdk-11-jdk wine zsh zsh-autosuggestions zsh-syntax-highlighting -y
+apt install at bc build-essential mingw-w64 nmap openjdk-11-jdk ruby wine zsh zsh-autosuggestions zsh-syntax-highlighting -y
 apt full-upgrade -y
 apt autoremove
 
@@ -32,7 +32,11 @@ echo "$green Deploy the Clones $white"
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip install .
 git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
 git clone https://github.com/lgandx/Responder.git /opt/Responder
+git clone --recurse-submodules https://github.com/cobbr/Covenant /opt/Covenant
 gem install evil-winrm
+
+wait
+sleep 5
 
 # Dotfiles
 echo "$green Deploy Dotfiles $white"
@@ -40,4 +44,14 @@ git clone https://github.com/Maleick/dotfiles /opt/dotfiles
 cp /opt/dotfiles/tmux/.tmux.conf ~
 cp /opt/dotfiles/vim/.vimrc ~
 cp /opt/dotfiles/zsh/.zshrc ~
+
+wait
+sleep 5
+
+# Dotnet
+wget https://download.visualstudio.microsoft.com/download/pr/ec187f12-929e-4aa7-8abc-2f52e147af1d/56b0dbb5da1c191bff2c271fcd6e6394/dotnet-sdk-3.1.404-linux-x64.tar.gz
+mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.1.404-linux-x64.tar.gz -C $HOME/dotnet
+echo 'export DOTNET_ROOT=$HOME/dotnet' >> .zshrc
+echo 'export PATH=$PATH:$HOME/dotnet' >> .zshrc
+
 
