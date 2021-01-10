@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.40
-# Update: 12/3/20
+# Version: 1.50
+# Update: 01/10/21
 # Deploy Kali VMWare image setup
 
 cat << "EOF"
@@ -23,7 +23,7 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc bloodhound build-essential chromium dkms dnsmasq hostapd mingw-w64 openjdk-11-jdk seclists wine32 -y
+apt install at bc bloodhound build-essential chromium dkms dnsmasq gss-ntlmssp powershell hostapd mingw-w64 openjdk-11-jdk seclists wine32 -y
 apt full-upgrade -y
 apt autoremove
 
