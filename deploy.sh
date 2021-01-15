@@ -23,7 +23,7 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc build-essential gss-ntlmssp powershell mingw-w64 openjdk-11-jdk open-vm-tools-desktop seclists zsh-autosuggestions zsh-syntax-hightlighting -y
+apt install at bc build-essential gss-ntlmssp powershell mingw-w64 openjdk-11-jdk open-vm-tools-desktop seclists zsh-autosuggestions zsh-syntax-highlighting -y
 apt full-upgrade -y
 apt autoremove
 
