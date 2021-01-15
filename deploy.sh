@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 1.62
+# Version: 1.64
 # Update: 01/15/21
 # Deploy Parrot image setup
 
@@ -23,9 +23,12 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc build-essential gss-ntlmssp powershell mingw-w64 openjdk-11-jdk seclists -y
+apt install at bc build-essential gss-ntlmssp powershell mingw-w64 openjdk-11-jdk open-vm-tools-desktop seclists zsh-autosuggestions zsh-syntax-hightlighting -y
 apt full-upgrade -y
 apt autoremove
+
+# Zsh please
+chsh -s $(which zsh)
 
 # Pip install
 echo "$green Deploying Pip $white"
