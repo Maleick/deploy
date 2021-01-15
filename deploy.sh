@@ -56,6 +56,7 @@ git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate; sh /opt/Enume
 # Dotfiles
 echo "$green Deploy Dotfiles $white"
 git clone https://github.com/Maleick/dotfiles /opt/dotfiles
+cp /opt/dotfiles/zsh/.zshrc ~/.zshrc
 cp /opt/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 cp /opt/dotfiles/vim/.vimrc ~/.vimrc
 wait
