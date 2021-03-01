@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 2.0
-# Update: 02/18/21
+# Version: 2.1
+# Update: 03/01/21
 # Deploy Kali image setup
 
 cat << "EOF"
@@ -52,10 +52,10 @@ git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate; sh /opt/Enume
 # Dotfiles
 echo "$green Deploy Dotfiles $white"
 git clone https://github.com/Maleick/dotfiles /opt/dotfiles
+wait
 cp /opt/dotfiles/zsh/.zshrc ~
 cp /opt/dotfiles/tmux/.tmux.conf ~
 cp /opt/dotfiles/vim/.vimrc ~
-wait
 
 # Reboot countdown
 echo "$red Rebooting in 10 seconds. $white"
