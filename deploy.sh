@@ -51,7 +51,7 @@ git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate; sh /opt/Enume
 
 # Dotfiles
 echo "$green Deploy Dotfiles $white"
-git clone https://github.com/Maleick/dotfiles /opt/dotfile; cd /opt/dotfile; bash install.sh
+git clone https://github.com/Maleick/dotfiles /opt/dotfiles
 
 # Reboot countdown
 echo "$red Rebooting in 10 seconds. $white"
