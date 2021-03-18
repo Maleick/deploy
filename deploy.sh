@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 2.2
-# Update: 03/12/21
+# Version: 2.3
+# Update: 03/18/21
 # Deploy Kali image setup
 
 cat << "EOF"
@@ -36,6 +36,7 @@ echo "$green Deploy the Clones $white"
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip3 install .
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git /opt/winPEAS
+https://github.com/threatexpress/malleable-c2.git /opt/malleable-c2
 git clone https://github.com/lgandx/Responder.git /opt/Responder
 gem install evil-winrm
 
