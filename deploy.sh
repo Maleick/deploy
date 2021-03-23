@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 2.3
-# Update: 03/18/21
+# Version: 2.4
+# Update: 03/23/21
 # Deploy Kali image setup
 
 cat << "EOF"
@@ -23,7 +23,7 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc build-essential gss-ntlmssp powershell mingw-w64 openjdk-11-jdk seclists -y
+apt install at bc build-essential chromium gss-ntlmssp mingw-w64 openjdk-11-jdk powershell python3-pip seclists -y
 apt full-upgrade -y
 apt autoremove
 
@@ -36,7 +36,7 @@ echo "$green Deploy the Clones $white"
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip3 install .
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git /opt/winPEAS
-https://github.com/threatexpress/malleable-c2.git /opt/malleable-c2
+git clone https://github.com/threatexpress/malleable-c2.git /opt/malleable-c2
 git clone https://github.com/lgandx/Responder.git /opt/Responder
 gem install evil-winrm
 
