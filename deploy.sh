@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 2.4
-# Update: 03/23/21
+# Version: 2.5
+# Update: 04/19/21
 # Deploy Kali image setup
 
 cat << "EOF"
@@ -37,6 +37,7 @@ git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git /opt/winPEAS
 git clone https://github.com/threatexpress/malleable-c2.git /opt/malleable-c2
+git clone https://github.com/threatexpress/random_c2_profile.git /opt/random_c2; cd /opt/random_c2; pip3 install -r requirements
 git clone https://github.com/lgandx/Responder.git /opt/Responder
 gem install evil-winrm
 
