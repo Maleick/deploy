@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Maleick
-# Version: 2.5
-# Update: 04/19/21
+# Version: 2.61
+# Update: 5/05/21
 # Deploy Kali image setup
 
 cat << "EOF"
@@ -23,7 +23,7 @@ white=$'\e[0m'
 # Updates
 echo "$green Deploying Updates $white"
 apt update
-apt install at bc build-essential chromium gss-ntlmssp mingw-w64 openjdk-11-jdk powershell python3-pip seclists -y
+apt install at bc bloodhound build-essential chromium gss-ntlmssp mingw-w64 openjdk-11-jdk powershell python3-pip seclists -y
 apt full-upgrade -y
 apt autoremove
 
@@ -39,6 +39,8 @@ git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-su
 git clone https://github.com/threatexpress/malleable-c2.git /opt/malleable-c2
 git clone https://github.com/threatexpress/random_c2_profile.git /opt/random_c2; cd /opt/random_c2; pip3 install -r requirements.txt
 git clone https://github.com/lgandx/Responder.git /opt/Responder
+git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
+
 gem install evil-winrm
 
 # Setup SSH
