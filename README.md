@@ -1,44 +1,51 @@
 # Deploy
 
-Tired of setting up new Kali images (or Ubuntu systems) from scratch? This repository contains a deploy script that automates the installation and configuration of essential tools for penetration testing, Red Team operations, and infrastructure security. Save time and get your machine ready for action with a single command.
+Tired of manually setting up new Kali or Ubuntu systems for penetration testing and Red Team operations? This repository provides a deploy script that automates the installation and configuration of essential tools, updates, and custom repositories with smart cloning/updating logic.
 
 ## Features
 
-- **System Updates & Upgrades:**  
-  Automatically updates package lists, upgrades the system, and removes obsolete packages.
+- **Automated System Updates & Upgrades:**  
+  The script updates package lists, performs full system upgrades, and removes obsolete packages.
 
-- **Core Package Installation:**  
-  Installs essential packages such as:
-  - `at`, `bc`
-  - `bloodhound`
-  - `build-essential`
+- **Essential Package Installation:**  
+  Installs a variety of packages required for development and security testing, including:
+  - `git`, `curl`, `at`, `bc`, `build-essential`
   - `chromium-browser`
   - `gss-ntlmssp`
   - `mingw-w64`
   - `openjdk-11-jdk`
-  - `powershell`
   - `python3-pip`
-  - `seclists`
   - `ruby-full`
 
-- **Python Tools:**  
-  Installs useful Python packages including:
+- **Snap-Based Installations:**  
+  Uses snap to install:
+  - [PowerShell](https://snapcraft.io/powershell) (with classic confinement)
+  - [SecLists](https://snapcraft.io/seclists)
+
+- **Python Tool Deployment:**  
+  Installs Python tools (with `--break-system-packages` for Ubuntu):
   - `mitm6`
   - `pypykatz`
 
-- **Repository Cloning & Installation:**  
-  Clones and sets up several repositories:
-  - [Fortra Impacket](https://github.com/fortra/impacket) – for network protocol interactions.
-  - [Egress-Assess](https://github.com/FortyNorthSecurity/Egress-Assess) – for outbound data flow analysis.
-  - [WinPEAS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite) – for Windows privilege escalation.
-  - [Responder](https://github.com/lgandx/Responder) – for network authentication analysis.
-  - [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) – for PowerShell exploitation techniques.
-  - [NetExec](https://github.com/Pennyw0rth/NetExec) – for network execution.
-  - [Enumerate](https://github.com/Maleick/Enumerate) – personal enumeration scripts.
-  - [Dotfiles](https://github.com/Maleick/dotfiles) – custom configurations deployed via its install script.
+- **Repository Cloning & Auto-Update:**  
+  Automatically clones or updates several repositories, including:
+  - **Fortra Impacket:** (installed via pip after cloning)
+  - **Egress-Assess:** for outbound data flow analysis.
+  - **WinPEAS:** a collection of Windows privilege escalation scripts.
+  - **Responder:** for network authentication and protocol analysis.
+  - **PowerSploit:** for PowerShell exploitation.
+  - **NetExec:** for network execution tools.
+  - **Enumerate:** (custom enumeration scripts) – the script checks for an installer before running.
+  - **Dotfiles:** custom configurations deployed by running its install script.
 
-- **Additional Tools:**  
-  - Installs the Ruby gem `evil-winrm` for Windows exploitation.
+- **Ruby Gem Installation:**  
+  Installs [Evil-WinRM](https://github.com/HarmJ0y/evil-winrm) via Ruby gem.
+
+- **Repository Update Logic:**  
+  Each repository is managed by a helper function that checks if the destination directory already exists. If it does, the script performs a `git pull` to update the repository instead of cloning it again.
+
+- **Automatic Reboot:**  
+  Once deployment is complete, the system will reboot after a short countdown.
 
 ## Requirements
 
@@ -48,7 +55,7 @@ Tired of setting up new Kali images (or Ubuntu systems) from scratch? This repos
 
 ## Usage
 
-To deploy the script, simply run the command below in your terminal:
+To deploy the script, run the command below in your terminal:
 
 ```bash
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Maleick/deploy/master/deploy.sh)"
