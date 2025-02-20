@@ -5,20 +5,21 @@ Tired of setting up new Kali images (or Ubuntu systems) from scratch? This repos
 ## Features
 
 - **System Updates & Upgrades:**  
-  Automatically updates package lists, installs security updates, upgrades all packages, and removes obsolete packages.
+  Automatically updates package lists, upgrades the system, and removes obsolete packages.
 
 - **Core Package Installation:**  
-  Installs key packages such as:
+  Installs essential packages such as:
   - `at`, `bc`
   - `bloodhound`
   - `build-essential`
-  - `chromium`
+  - `chromium-browser`
   - `gss-ntlmssp`
   - `mingw-w64`
   - `openjdk-11-jdk`
   - `powershell`
   - `python3-pip`
   - `seclists`
+  - `ruby-full`
 
 - **Python Tools:**  
   Installs useful Python packages including:
@@ -26,23 +27,18 @@ Tired of setting up new Kali images (or Ubuntu systems) from scratch? This repos
   - `pypykatz`
 
 - **Repository Cloning & Installation:**  
-  Clones and sets up several repositories, such as:
-  - [Impacket](https://github.com/SecureAuthCorp/impacket) – for network protocol interactions.
+  Clones and sets up several repositories:
+  - [Fortra Impacket](https://github.com/fortra/impacket) – for network protocol interactions.
   - [Egress-Assess](https://github.com/FortyNorthSecurity/Egress-Assess) – for outbound data flow analysis.
-  - [Privilege Escalation Awesome Scripts Suite](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite) – for Windows post-exploitation.
-  - [Malleable C2](https://github.com/threatexpress/malleable-c2) – for custom C2 profiles.
-  - [Random C2 Profile](https://github.com/threatexpress/random_c2_profile) – for additional C2 configurations.
+  - [WinPEAS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite) – for Windows privilege escalation.
   - [Responder](https://github.com/lgandx/Responder) – for network authentication analysis.
   - [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) – for PowerShell exploitation techniques.
-  - [Enumerate](https://github.com/Maleick/Enumerate) – a personal repository for enumeration scripts.
-  - [Dotfiles](https://github.com/Maleick/dotfiles) – for custom configurations.
+  - [NetExec](https://github.com/Pennyw0rth/NetExec) – for network execution.
+  - [Enumerate](https://github.com/Maleick/Enumerate) – personal enumeration scripts.
+  - [Dotfiles](https://github.com/Maleick/dotfiles) – custom configurations deployed via its install script.
 
 - **Additional Tools:**  
   - Installs the Ruby gem `evil-winrm` for Windows exploitation.
-  - Configures SSH by regenerating host keys and reconfiguring the OpenSSH server.
-
-- **Automatic Reboot:**  
-  Once the deployment is complete, the script reboots the system to apply all changes.
 
 ## Requirements
 
