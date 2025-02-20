@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
 
 # Author: Maleick
-# Version: 2.61
-# Update: 5/05/21
-# Deploy Kali image setup
+# Version: 3.2
+# Update: 2025-02-20
+# Deploy Ubuntu/Kali system setup with updated tools
 
 cat << "EOF"
 ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███████╗██╗  ██╗
@@ -14,51 +16,74 @@ cat << "EOF"
 ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚═╝╚══════╝╚═╝  ╚═╝
 EOF
 
-# Colors
+# Colors for output
 blue=$'\e[0;94m'
 green=$'\e[1;92m'
 red=$'\e[0;91m'
 white=$'\e[0m'
 
-# Updates
-echo "$green Deploying Updates $white"
+# Update package lists and upgrade system
+echo "${green}Updating system packages...${white}"
 apt update
-apt install at bc bloodhound build-essential chromium gss-ntlmssp mingw-w64 openjdk-11-jdk powershell python3-pip seclists -y
 apt full-upgrade -y
-apt autoremove
+apt autoremove -y
 
-# Pip install
-echo "$green Deploying Pip $white"
+# Ensure essential packages are installed
+echo "${green}Installing essential packages...${white}"
+apt install -y git curl at bc bloodhound build-essential chromium-browser gss-ntlmssp mingw-w64 openjdk-11-jdk powershell python3-pip seclists ruby-full
+
+# Deploy Python tools using pip3
+echo "${green}Installing Python tools...${white}"
 pip3 install mitm6 pypykatz
 
-# Clone all the things
-echo "$green Deploy the Clones $white"
-git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket; cd /opt/impacket; pip3 install .
+# Clone repositories and install tools
+echo "${green}Cloning and setting up repositories...${white}"
+
+# Fortra Impacket
+echo "${green}Cloning Fortra Impacket...${white}"
+git clone https://github.com/fortra/impacket.git /opt/impacket
+cd /opt/impacket
+pip3 install .
+cd -
+
+# Egress-Assess
+echo "${green}Cloning Egress-Assess...${white}"
 git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
+
+# WinPEAS (Privilege Escalation Awesome Scripts Suite)
+echo "${green}Cloning WinPEAS...${white}"
 git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git /opt/winPEAS
-git clone https://github.com/threatexpress/malleable-c2.git /opt/malleable-c2
-git clone https://github.com/threatexpress/random_c2_profile.git /opt/random_c2; cd /opt/random_c2; pip3 install -r requirements.txt
+
+# Responder
+echo "${green}Cloning Responder...${white}"
 git clone https://github.com/lgandx/Responder.git /opt/Responder
+
+# PowerSploit
+echo "${green}Cloning PowerSploit...${white}"
 git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
 
+# NetExec
+echo "${green}Cloning NetExec...${white}"
+git clone https://github.com/Pennyw0rth/NetExec.git /opt/netexec
+cd /opt/netexec
+# Add any additional installation steps for NetExec if required
+cd -
+
+# Evil-WinRM (via Ruby gem)
+echo "${green}Installing Evil-WinRM Ruby gem...${white}"
 gem install evil-winrm
 
-# Setup SSH
-echo "$green Deploy SSH $white"
-systemctl enable ssh.service
-rm /etc/ssh/ssh_host_*
-dpkg-reconfigure openssh-server
+# Enumerate: Clone repository and run its installer
+echo "${green}Setting up Enumerate scripts...${white}"
+git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate
+sh /opt/Enumerate/install.sh
 
-# Enumerate
-echo "$green Deploy Enumerate $white"
-git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate; sh /opt/Enumerate/install.sh
+# Dotfiles: Deploy by cloning and running the install script
+echo "${green}Deploying Dotfiles...${white}"
+git clone https://github.com/Maleick/dotfiles.git /opt/dotfiles
+sh /opt/dotfiles/install.sh
 
-# Dotfiles
-echo "$green Deploy Dotfiles $white"
-git clone https://github.com/Maleick/dotfiles /opt/dotfiles
-
-# Reboot countdown
-echo "$red Rebooting in 10 seconds. $white"
+# Final message and reboot countdown
+echo "${red}Rebooting in 10 seconds...${white}"
 sleep 10s
-
 reboot
