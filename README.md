@@ -51,4 +51,4 @@ Tired of setting up new Kali images (or Ubuntu systems) from scratch? This repos
 To deploy the script, simply run the command below in your terminal:
 
 ```bash
-sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/Maleick/deploy/master/deploy.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Maleick/deploy/master/deploy.sh)"
