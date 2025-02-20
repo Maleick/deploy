@@ -3,9 +3,9 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Author: Maleick
-# Version: 3.4
+# Version: 3.5
 # Update: 2025-02-20
-# Deploy Ubuntu/Kali system setup with updated snap installations
+# Deploy Ubuntu/Kali system setup with updated snap installations and pip workaround
 
 cat << "EOF"
 ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███████╗██╗  ██╗
@@ -40,9 +40,9 @@ snap install powershell --classic
 echo "${green}Installing SecLists via snap...${white}"
 snap install seclists
 
-# Deploy Python tools using pip3
+# Deploy Python tools using pip3 with the break-system-packages flag
 echo "${green}Installing Python tools...${white}"
-pip3 install mitm6 pypykatz
+pip3 install --break-system-packages mitm6 pypykatz
 
 # Clone repositories and install tools
 echo "${green}Cloning and setting up repositories...${white}"
@@ -51,7 +51,7 @@ echo "${green}Cloning and setting up repositories...${white}"
 echo "${green}Cloning Fortra Impacket...${white}"
 git clone https://github.com/fortra/impacket.git /opt/impacket
 cd /opt/impacket
-pip3 install .
+pip3 install --break-system-packages .
 cd -
 
 # Egress-Assess
