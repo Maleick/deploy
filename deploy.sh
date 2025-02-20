@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Author: Maleick
-# Version: 3.2
+# Version: 3.3
 # Update: 2025-02-20
 # Deploy Ubuntu/Kali system setup with updated tools
 
@@ -28,9 +28,17 @@ apt update
 apt full-upgrade -y
 apt autoremove -y
 
-# Ensure essential packages are installed
+# Install essential packages from apt
 echo "${green}Installing essential packages...${white}"
-apt install -y git curl at bc bloodhound build-essential chromium-browser gss-ntlmssp mingw-w64 openjdk-11-jdk powershell python3-pip seclists ruby-full
+apt install -y git curl at bc build-essential chromium-browser gss-ntlmssp mingw-w64 openjdk-11-jdk python3-pip ruby-full
+
+# Install PowerShell via snap
+echo "${green}Installing PowerShell via snap...${white}"
+snap install powershell --classic
+
+# Clone SecLists from GitHub (replacing seclists apt package)
+echo "${green}Cloning SecLists...${white}"
+git clone https://github.com/danielmiessler/SecLists.git /opt/SecLists
 
 # Deploy Python tools using pip3
 echo "${green}Installing Python tools...${white}"
