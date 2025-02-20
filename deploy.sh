@@ -3,9 +3,9 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Author: Maleick
-# Version: 3.6
+# Version: 3.7
 # Update: 2025-02-20
-# Deploy Ubuntu/Kali system setup with updated snap installations and pip workaround
+# Deploy Ubuntu/Kali system setup with updated snap installations and Enumerate check
 
 cat << "EOF"
 ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███████╗██╗  ██╗
@@ -81,10 +81,14 @@ cd -
 echo "${green}Installing Evil-WinRM Ruby gem...${white}"
 gem install evil-winrm
 
-# Enumerate: Clone repository and run its installer
+# Enumerate: Clone repository and run its installer if available
 echo "${green}Setting up Enumerate scripts...${white}"
 git clone https://github.com/Maleick/Enumerate.git /opt/Enumerate
-sh /opt/Enumerate/install.sh
+if [ -f /opt/Enumerate/install.sh ]; then
+    sh /opt/Enumerate/install.sh
+else
+    echo "${red}Warning: /opt/Enumerate/install.sh not found. Skipping Enumerate installation.${white}"
+fi
 
 # Dotfiles: Deploy by cloning and running the install script
 echo "${green}Deploying Dotfiles...${white}"
