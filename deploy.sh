@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Author: Maleick
-# Version: 3.5
+# Version: 3.6
 # Update: 2025-02-20
 # Deploy Ubuntu/Kali system setup with updated snap installations and pip workaround
 
@@ -47,11 +47,11 @@ pip3 install --break-system-packages mitm6 pypykatz
 # Clone repositories and install tools
 echo "${green}Cloning and setting up repositories...${white}"
 
-# Fortra Impacket
+# Fortra Impacket - using --ignore-installed to avoid conflicts with system-installed packages
 echo "${green}Cloning Fortra Impacket...${white}"
 git clone https://github.com/fortra/impacket.git /opt/impacket
 cd /opt/impacket
-pip3 install --break-system-packages .
+pip3 install --break-system-packages --ignore-installed .
 cd -
 
 # Egress-Assess
