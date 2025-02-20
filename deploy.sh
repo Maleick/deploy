@@ -3,9 +3,9 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Author: Maleick
-# Version: 3.3
+# Version: 3.4
 # Update: 2025-02-20
-# Deploy Ubuntu/Kali system setup with updated tools
+# Deploy Ubuntu/Kali system setup with updated snap installations
 
 cat << "EOF"
 ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███████╗██╗  ██╗
@@ -28,17 +28,17 @@ apt update
 apt full-upgrade -y
 apt autoremove -y
 
-# Install essential packages from apt
+# Install essential packages via apt
 echo "${green}Installing essential packages...${white}"
 apt install -y git curl at bc build-essential chromium-browser gss-ntlmssp mingw-w64 openjdk-11-jdk python3-pip ruby-full
 
-# Install PowerShell via snap
+# Install PowerShell via snap with classic confinement
 echo "${green}Installing PowerShell via snap...${white}"
 snap install powershell --classic
 
-# Clone SecLists from GitHub (replacing seclists apt package)
-echo "${green}Cloning SecLists...${white}"
-git clone https://github.com/danielmiessler/SecLists.git /opt/SecLists
+# Install SecLists via snap
+echo "${green}Installing SecLists via snap...${white}"
+snap install seclists
 
 # Deploy Python tools using pip3
 echo "${green}Installing Python tools...${white}"
@@ -74,7 +74,7 @@ git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/PowerSploit
 echo "${green}Cloning NetExec...${white}"
 git clone https://github.com/Pennyw0rth/NetExec.git /opt/netexec
 cd /opt/netexec
-# Add any additional installation steps for NetExec if required
+# Additional installation steps for NetExec can be added here if required.
 cd -
 
 # Evil-WinRM (via Ruby gem)
